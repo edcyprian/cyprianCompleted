@@ -1,0 +1,65 @@
+
+<h3 class="card-title">Signup</h3>
+<form #signUpForm="ngForm" (ngSubmit)="submit(signUpForm)">
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" class="form-control" [(ngModel)]="username" required #usernameField="ngModel">
+        <div class="form-error form-username-error" *ngIf="usernameField.touched && !usernameField.valid">
+            This username is not available
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control" [(ngModel)]="email" required email #emailField="ngModel">
+        <div class="form-error form-email-error" *ngIf="emailField.touched && !emailField.valid">
+            This is not a correct email
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control" [(ngModel)]="password" required #passwordField="ngModel">
+        <div *ngIf="passwordField.invalid && passwordField.touched" class="form-error form-password-error">
+            Password should have at least 8 characters including one uppercase, one lowercase and one number
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Repeat Password</label>
+        <input type="password" name="password_match" class="form-control" [(ngModel)]="passwordConfirm" required #passwordConfirmField="ngModel">
+        <div *ngIf="passwordConfirmField.invalid && passwordConfirmField.touched" class="form-error form-password_match-error">
+            This field is required.
+        </div>
+        <div *ngIf="password !== passwordConfirm && passwordConfirmField.touched" class="form-error form-password_match-error">
+            Passwords should match
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Phone Number</label>
+        <input ngModel class="form-control" name="phoneNumber" type="tel" required #phoneNumberField="ngModel">
+        <div class="form-error form-phonenumber-error" *ngIf="phoneNumberField.touched && !phoneNumberField.valid">
+            This phone number is invalid. Valid format is (999) 999-9999
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Country</label>
+        <select class="form-control" name="country" [(ngModel)]="country" (change)="onCountryChange(country)" required #countryField="ngModel">
+            <option value="">--Select Country--</option>
+            <option *ngFor="let country of countries" [value]="country.id">{{country.name}}</option>
+        </select>
+        <div class="form-error form-country-error" *ngIf="countryField.touched && !countryField.valid">
+            This country is not available
+        </div>
+    </div>
+    <div class="form-group">
+        <label>State</label>
+        <select class="form-control" name="state" [(ngModel)]="state" required #stateField="ngModel">
+            <option value="">--Select State--</option>
+            <option *ngFor="let state of states" [value]="state.id">{{state.name}}</option>
+        </select>
+        <div class="form-error form-state-error" *ngIf="stateField.touched && !stateField.valid">
+            This state is not available
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+    </div>
+</form>
